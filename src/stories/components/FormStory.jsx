@@ -8,6 +8,8 @@ const FormStory = () => {
     useForm({
       comment: "",
       photo: "",
+      like:0,
+      dislike:0
     });
   const [error, setError] = useState(false);
 
