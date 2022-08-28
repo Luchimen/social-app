@@ -113,6 +113,45 @@ body {
   border: none;
   border-radius: 6px;
 }
+.post__reaction{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#like{
+  color: #333;
+  background: none;
+  border: none;
+  font-size: 30px;
+  padding: 0 15px;
+  margin: 10px 0;
+  margin-left: 20px;
+  cursor: pointer;
+}
+#dislike{
+  color: #333;
+  background: none;
+  border: none;
+  font-size: 30px;
+  padding: 0 15px;
+  margin: 10px 0;
+  margin-left: 20px;
+  cursor: pointer;
+}
+#inputlike, #inputdislike{
+  width: 50px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  margin: 0 10px;
+  pointer-events: none;
+}
+#like:hover{
+  color: #4f46e5;
+}
+#dislike:hover{
+  color: crimson;
+}
 
 @media screen and (min-width: 768px) {
   .form-story {
