@@ -1,92 +1,89 @@
-// import React from 'react'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { usersActive } from "../../assets/userDb";
+import { useForm } from "../../hooks/useForm";
+import { useStories } from "../../hooks/useStories";
 
-// export const LoginPage = () => {
-//   return (
-//     <div>LoginPage</div>
-//   )
-// }
-
-import React, { useState } from "react";
-
-
-export const LoginPage=()=> {
-  // React States
+export const LoginPage = () => {
+  const { onInputChange, onResetForm, user, password } = useForm({
+    user: "",
+    password: "",
+  });
+  const { onLogin } = useStories();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
-
   const errors = {
     uname: "USUARIO INVALIDO",
-    pass: "CONTRASEÑA INVALIDA"
+    pass: "CONTRASEÑA INVALIDA",
   };
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-    //Prevent page reload
     event.preventDefault();
 
-    var { uname, pass } = document.forms[0];
+    const userData = usersActive.find((value) => value.user === user);
 
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
     if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
+      if (userData.password !== password) {
         setErrorMessages({ name: "pass", message: errors.pass });
+        return;
       } else {
         setIsSubmitted(true);
       }
     } else {
-      // Username not found
       setErrorMessages({ name: "uname", message: errors.uname });
+      return;
     }
+    onLogin(userData);
+    onResetForm();
+    navigate("/", {
+      replace: true,
+    });
   };
 
-  // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
+      <div className="login__error">{errorMessages.message}</div>
     );
 
-  // JSX code for login form
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>USUARIO </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          <label>CONTRASEÑA </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit"/>
-        </div>
-      </form>
-    </div>
-  );
-
   return (
-    <div className="app">
+    <div className="login__app">
       <div className="login-form">
-        <div className="title">Sign In</div>
-        {isSubmitted ? <div>USUARIO INGRESO CON EXITO</div> : renderForm}
+        <div className="login__title">Logearse</div>
+        <div className="login__form">
+          <form onSubmit={handleSubmit}>
+            <div className="login__input-container">
+              <label>USUARIO </label>
+              <input
+                type="text"
+                name="user"
+                required
+                className="login__input"
+                value={user}
+                onChange={onInputChange}
+              />
+              {renderErrorMessage("uname")}
+            </div>
+            <div className="login__input-container">
+              <label>CONTRASEÑA </label>
+              <input
+                type="password"
+                name="password"
+                required
+                value={password}
+                onChange={onInputChange}
+                className="login__input"
+              />
+              {renderErrorMessage("pass")}
+            </div>
+            <div className="login__button-container">
+              <input type="submit" className="login__input-btn" />
+            </div>
+          </form>
+        </div>
+        {isSubmitted && <div>USUARIO INGRESO CON EXITO</div>}
       </div>
     </div>
   );
-}
+};
