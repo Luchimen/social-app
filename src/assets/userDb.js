@@ -2,19 +2,19 @@ export const usersActive = [
   {
     id: 1,
     user: "yuly",
-    password: "mifortaleza",
+    password: "123",
     name: "Yuly Sandra",
   },
   {
     id: 2,
     user: "kevin",
-    password: "chase",
+    password: "1234",
     name: "Kevin Flores",
   },
   {
     id: 3,
     user: "luis",
-    password: "1234",
+    password: "12345",
     name: "Luis Miguel",
   },
 ];
