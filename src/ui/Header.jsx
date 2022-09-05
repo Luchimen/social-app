@@ -8,16 +8,14 @@ const Header = () => {
       <div className="mx-auto">
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 px-4 sm:px-6">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
-              <span className="sr-only">Workflow</span>
-              <Link to="/">
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                  alt=""
-                />
-              </Link>
-            </a>
+            <span className="sr-only">Workflow</span>
+            <Link to="/">
+              <img
+                className="h-8 w-auto sm:h-10"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                alt=""
+              />
+            </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
             <button

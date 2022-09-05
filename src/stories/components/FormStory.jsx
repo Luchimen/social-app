@@ -4,21 +4,28 @@ import { useForm } from "../../hooks/useForm";
 import { useStories } from "../../hooks/useStories";
 const FormStory = () => {
   const { saveStory } = useStories();
-  const { onInputChange, onResetForm, comment, handleFileInput, formState } =
-    useForm({
-      comment: "",
-      photo: "",
-      like:0,
-      dislike:0
-    });
+  const {
+    selectedFiles,
+    onInputChange,
+    onResetForm,
+    comment,
+    handleImageChange,
+    formState,
+  } = useForm({
+    comment: "",
+    photo: "",
+    like: 0,
+    dislike: 0,
+  });
   const [error, setError] = useState(false);
 
   const submitForm = () => {
+    console.log(selectedFiles);
     if (comment === "") {
       setError(true);
       return;
     }
-    saveStory(formState);
+    saveStory({ ...formState, photo: selectedFiles });
     onResetForm();
     document.getElementById("input").value = "";
     setError(false);
@@ -45,7 +52,8 @@ const FormStory = () => {
               accept="image/*"
               name="photo"
               id="input"
-              onChange={handleFileInput}
+              onChange={handleImageChange}
+              multiple
             />
           </div>
           <button
